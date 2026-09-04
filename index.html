@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pfeiffer Stay Co. — Cliffside Cottage, a 1,920 sq ft split-level vacation rental in Mansfield, Ohio with hot tub, pool table, foosball, and 45+ board games. Minutes from Mohican, Malabar Farm, and Snow Trails. Call +1 419-544-0969.">
+<title>Cliffside Cottage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+  :root {
+    --cream: #F8F4EA;
+    --cream-deep: #EFE8D8;
+    --felt: #2E6B4F;
+    --felt-deep: #1D4735;
+    --walnut: #6B4A2E;
+    --cherry: #B33A3A;
+    --cherry-bright: #C94F4F;
+    --ink: #2C2A24;
+    --ink-soft: #6F6A5E;
+    --line: #DFD6C1;
+    --card: #FFFDF6;
+    --img-bg: #E5DDC9;
+    --on-dark: #F1EDE0;
+    --on-accent: #FFFDF6;
+    --gold: #D9A93F;
+    --display: "Bree Serif", "Georgia", serif;
+    --body: "Rubik", "Segoe UI", Arial, sans-serif;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #181A16;
+      --cream-deep: #111310;
+      --felt: #7FB9A0;
+      --felt-deep: #B0D8C4;
+      --walnut: #C79B72;
+      --cherry: #D97B7B;
+      --cherry-bright: #C94F4F;
+      --ink: #EBE8DE;
+      --ink-soft: #A5A091;
+      --line: #363A32;
+      --card: #21241F;
+      --img-bg: #2A2E27;
+      --on-dark: #111310;
+      --on-accent: #111310;
+      --gold: #D9A93F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --cream: #181A16;
+    --cream-deep: #111310;
+    --felt: #7FB9A0;
+    --felt-deep: #B0D8C4;
+    --walnut: #C79B72;
+    --cherry: #D97B7B;
+    --cherry-bright: #C94F4F;
+    --ink: #EBE8DE;
+    --ink-soft: #A5A091;
+    --line: #363A32;
+    --card: #21241F;
+    --img-bg: #2A2E27;
+    --on-dark: #111310;
+    --on-accent: #111310;
+    --gold: #D9A93F;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.66;
+  }
+  a { color: var(--cherry); }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img, svg { max-width: 100%; display: block; }
+  img.ph { width: 100%; height: 100%; object-fit: cover; background: var(--img-bg); color: var(--ink-soft); }
+
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+  .eyebrow {
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cherry);
+    margin: 0 0 0.8rem;
+  }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--felt-deep); text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(1.7rem, 4.5vw, 2.35rem); line-height: 1.15; }
+  h3 { font-size: 1.15rem; }
+  p { margin: 0; }
+  section { padding: 4.4rem 0; scroll-margin-top: 4.5rem; }
+  .prose { max-width: 40em; }
+  .prose p + p { margin-top: 1rem; }
+  .section-intro { max-width: 46em; margin-top: 1rem; color: var(--ink-soft); }
+
+  /* ---------- Header ---------- */
+  .site-head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--cream) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.site { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; }
+  .brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--felt-deep); line-height: 1.15; }
+  .brand svg { width: 38px; height: 38px; flex: none; }
+  .brand .name { font-family: var(--display); font-size: 1.1rem; }
+  .brand small { display: block; font-family: var(--body); font-weight: 600; font-size: 0.67rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-soft); }
+  nav.top { display: none; gap: 1.4rem; }
+  nav.top a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+  nav.top a:hover { color: var(--cherry); }
+  .call-btn {
+    display: inline-block;
+    background: var(--felt);
+    color: var(--on-accent);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .call-btn:hover { background: var(--cherry); }
+  @media (min-width: 880px) { nav.top { display: flex; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 3.2rem 0 3.5rem; }
+  .hero-grid { display: grid; gap: 2.2rem; align-items: center; }
+  @media (min-width: 820px) { .hero-grid { grid-template-columns: 1fr 1.05fr; gap: 3rem; } }
+  .open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.35rem 0.95rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--felt);
+    margin-bottom: 1.15rem;
+  }
+  .open-badge::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #3E7A46; }
+  .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); line-height: 1.07; }
+  .hero h1 em { font-style: normal; color: var(--cherry); }
+  .hero .lede { margin-top: 1.15rem; font-size: 1.14rem; max-width: 35em; color: var(--ink-soft); }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.9rem; }
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 1rem;
+  }
+  .btn-solid { background: var(--cherry); color: var(--on-accent); }
+  .btn-solid:hover { background: var(--felt); color: var(--on-accent); }
+  .btn-ghost { border: 2px solid var(--felt); color: var(--felt); }
+  .btn-ghost:hover { border-color: var(--cherry); color: var(--cherry); }
+  .hero-note { margin-top: 1.4rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .hero-photo, .figure {
+    margin: 0;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  .hero-photo { aspect-ratio: 16 / 10; }
+  .figure { aspect-ratio: 4 / 3; }
+  .figure.tall { aspect-ratio: 1 / 1; }
+  .hero-photo figcaption, .figure figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 1.4rem 1.2rem 0.8rem;
+    background: linear-gradient(transparent, rgba(24, 28, 22, 0.78));
+    color: #F1EDE0;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* ---------- Strip ---------- */
+  .strip { background: var(--felt-deep); padding: 1.1rem 0; }
+  .strip-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 2.2rem;
+    color: var(--on-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .strip-row span::before { content: "♠ "; color: var(--gold); }
+  :root[data-theme="dark"] .strip { background: var(--card); }
+  :root[data-theme="dark"] .strip-row { color: var(--ink); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .strip { background: var(--card); }
+    :root:not([data-theme="light"]) .strip-row { color: var(--ink); }
+  }
+
+  /* ---------- Inside ---------- */
+  .inside { background: var(--cream-deep); }
+  .photo-duo { display: grid; gap: 1rem; margin-top: 2.3rem; }
+  @media (min-width: 700px) { .photo-duo { grid-template-columns: 1.4fr 1fr; } }
+  .amen-grid { display: grid; gap: 1.1rem; margin-top: 1.4rem; }
+  @media (min-width: 560px) { .amen-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px) { .amen-grid { grid-template-columns: repeat(3, 1fr); } }
+  .amen {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.3rem 1.3rem 1.25rem;
+  }
+  .amen .glyph { font-size: 1.6rem; margin-bottom: 0.6rem; }
+  .amen p { margin-top: 0.4rem; font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ---------- Game room ---------- */
+  .games { background: var(--felt-deep); }
+  .games .eyebrow { color: var(--gold); }
+  .games h2 { color: var(--on-dark); }
+  .games .section-intro { color: var(--on-dark); opacity: 0.87; }
+  .split { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 820px) {
+    .split { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+    .split.flip > .figure { order: -1; }
+  }
+  .game-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .gchip {
+    background: color-mix(in srgb, var(--on-dark) 9%, transparent);
+    border: 1px solid color-mix(in srgb, var(--on-dark) 24%, transparent);
+    color: var(--on-dark);
+    border-radius: 999px;
+    padding: 0.45rem 1.05rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .gchip b { color: var(--gold); }
+  :root[data-theme="dark"] .games { background: var(--cream-deep); }
+  :root[data-theme="dark"] .games h2 { color: var(--ink); }
+  :root[data-theme="dark"] .games .section-intro { color: var(--ink-soft); }
+  :root[data-theme="dark"] .gchip { color: var(--ink); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .games { background: var(--cream-deep); }
+    :root:not([data-theme="light"]) .games h2 { color: var(--ink); }
+    :root:not([data-theme="light"]) .games .section-intro { color: var(--ink-soft); }
+    :root:not([data-theme="light"]) .gchip { color: var(--ink); }
+  }
+
+  /* ---------- Nearby ---------- */
+  .near-grid { display: grid; gap: 1.1rem; margin-top: 2.4rem; }
+  @media (min-width: 640px) { .near-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .near-grid { grid-template-columns: repeat(3, 1fr); } }
+  .near {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.35rem 1.35rem 1.3rem;
+  }
+  .near .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--cherry);
+    margin-bottom: 0.4rem;
+  }
+  .near p { margin-top: 0.4rem; font-size: 0.94rem; color: var(--ink-soft); }
+
+  /* ---------- Book ---------- */
+  .book { background: var(--cream-deep); }
+  .hours-line { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.6rem; }
+  .day {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.7rem;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .day b { display: block; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--felt); font-weight: 700; }
+  .vcard {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.5rem 1.4rem;
+  }
+  .vcard + .vcard { margin-top: 1.1rem; }
+  .vcard h3 { font-size: 1.05rem; }
+  .vcard p { margin-top: 0.45rem; color: var(--ink-soft); font-size: 0.96rem; }
+  .vcard a { font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+  .vcard a:hover { text-decoration: underline; }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    background: var(--cream-deep);
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 2.5rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  footer.site .fbrand { font-family: var(--display); font-size: 1.25rem; color: var(--felt-deep); margin-bottom: 0.4rem; }
+  footer.site p { margin-top: 0.3rem; }
+  footer.site a { color: inherit; }
+  footer.site .fine { font-size: 0.78rem; max-width: 48em; margin: 0.9rem auto 0; }
+</style>
+</head>
+<body>
+
+<div class="site-head">
+  <div class="wrap">
+    <header class="site">
+      <a class="brand" href="#top" aria-label="Cliffside Cottage home">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <rect x="4" y="16" width="32" height="18" rx="2" fill="#2E6B4F"/>
+          <path d="M2 18 L20 4 L38 18 Z" fill="#6B4A2E"/>
+          <rect x="17" y="24" width="6" height="10" rx="1" fill="#F8F4EA"/>
+          <circle cx="11" cy="24" r="2.4" fill="#D9A93F"/>
+          <circle cx="29" cy="24" r="2.4" fill="#C94F4F"/>
+        </svg>
+        <span class="name">Cliffside Cottage<small>Pfeiffer Stay Co. &middot; Mansfield, OH</small></span>
+      </a>
+      <nav class="top" aria-label="Sections">
+        <a href="#inside">Inside</a>
+        <a href="#games">Game room</a>
+        <a href="#nearby">Nearby</a>
+        <a href="#book">Book</a>
+      </nav>
+      <a class="call-btn" href="tel:+14195440969">Call to book</a>
+    </header>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="open-badge">Hosts on call 24 / 7</span>
+        <h1>Game nights, hot-tub evenings, <em>and room for everyone.</em></h1>
+        <p class="lede">Welcome to Cliffside Cottage — a clean 1,920 sq ft split-level home in the quiet, family-friendly Walnut Hills neighborhood of Mansfield, Ohio. Stocked kitchen, coffee &amp; tea bar, high-speed Wi-Fi, and a lower level built for fun: hot tub, full-size pool table, foosball, cornhole, and 45+ board games.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-solid" href="tel:+14195440969">Call 419-544-0969</a>
+          <a class="btn btn-ghost" href="#inside">Look inside</a>
+        </div>
+        <p class="hero-note">561 Cliffside Dr, Mansfield, OH 44904 &middot; Pfeiffer Stay Co. LLC</p>
+      </div>
+      <figure class="hero-photo">
+        <img class="ph" src="img/cliffside-exterior.jpg" alt="Cliffside Cottage — a split-level home with columned entry, brick chimney, and wide green lawn" loading="eager">
+        <figcaption>The cottage itself, on its quiet Walnut Hills lawn.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap strip-row">
+      <span>1,920 sq ft split-level</span>
+      <span>Private hot tub</span>
+      <span>Full-size pool table</span>
+      <span>45+ board games</span>
+      <span>High-speed Wi-Fi</span>
+    </div>
+  </div>
+
+  <!-- ================= INSIDE ================= -->
+  <section id="inside" class="inside">
+    <div class="wrap">
+      <p class="eyebrow">Inside the cottage</p>
+      <h2>Clean, comfortable, and genuinely stocked.</h2>
+      <div class="photo-duo">
+        <figure class="figure">
+          <img class="ph" src="img/bedroom-1.jpg" alt="Bright bedroom with a queen bed, floral bedding, ceiling fan, and reading chair" loading="lazy">
+          <figcaption>Fresh linens, ceiling fans, and room to unwind.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img class="ph" src="img/bedroom-2.jpg" alt="Second bedroom with an ornate wooden headboard and warm bedding" loading="lazy">
+          <figcaption>A second cozy bedroom.</figcaption>
+        </figure>
+      </div>
+      <div class="amen-grid">
+        <div class="amen">
+          <div class="glyph">🍳</div>
+          <h3>Fully stocked kitchen</h3>
+          <p>Cook real meals, not vacation compromises — pots, pans, and the tools you actually need.</p>
+        </div>
+        <div class="amen">
+          <div class="glyph">☕</div>
+          <h3>Coffee &amp; tea bar</h3>
+          <p>Slow mornings start here — brew your favorite before the day gets going.</p>
+        </div>
+        <div class="amen">
+          <div class="glyph">🧱</div>
+          <h3>Brick patio</h3>
+          <p>Take dinner or a drink outside on the cottage's own brick patio.</p>
+        </div>
+        <div class="amen">
+          <div class="glyph">📶</div>
+          <h3>High-speed Wi-Fi</h3>
+          <p>Stream movie night or squeeze in remote work — the connection keeps up.</p>
+        </div>
+        <div class="amen">
+          <div class="glyph">♨️</div>
+          <h3>Hot tub</h3>
+          <p>The best seat in the house after a day at Mohican or on the slopes.</p>
+        </div>
+        <div class="amen">
+          <div class="glyph">🏘️</div>
+          <h3>Quiet neighborhood</h3>
+          <p>Walnut Hills is calm and family-friendly — restful nights guaranteed by geography.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GAME ROOM ================= -->
+  <section id="games" class="games">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">The game room</p>
+        <h2>Rainy days don't stand a chance.</h2>
+        <p class="section-intro">The lower level is where evenings turn into tournaments. Rack up a game of eight-ball, spin the foosball rods, throw some bags, or dig into a library of forty-five-plus board games — there's a title for every age at the table.</p>
+        <div class="game-chips">
+          <span class="gchip"><b>♟</b> Full-size pool table</span>
+          <span class="gchip"><b>⚽</b> Foosball table</span>
+          <span class="gchip"><b>🎯</b> Cornhole</span>
+          <span class="gchip"><b>🎲</b> 45+ board games</span>
+        </div>
+      </div>
+      <figure class="figure">
+        <img class="ph" src="img/game-room.jpg" alt="The lower-level game room with a green-felt pool table and comfortable couch" loading="lazy">
+        <figcaption>The felt is waiting — rack 'em up.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= NEARBY ================= -->
+  <section id="nearby">
+    <div class="wrap">
+      <p class="eyebrow">Minutes from the good stuff</p>
+      <h2>Basecamp for Mansfield's best days out.</h2>
+      <div class="near-grid">
+        <div class="near">
+          <span class="tag">Outdoors</span>
+          <h3>Mohican</h3>
+          <p>State park country — hiking, canoeing, and gorge views in Ohio's outdoor playground.</p>
+        </div>
+        <div class="near">
+          <span class="tag">History &amp; farm</span>
+          <h3>Malabar Farm</h3>
+          <p>Louis Bromfield's storied working farm and state park — tours, trails, and big barn charm.</p>
+        </div>
+        <div class="near">
+          <span class="tag">Racing</span>
+          <h3>Mid-Ohio Sports Car Course</h3>
+          <p>Race weekends and track days at one of the country's great road courses.</p>
+        </div>
+        <div class="near">
+          <span class="tag">Famous</span>
+          <h3>The Ohio State Reformatory</h3>
+          <p>The legendary Shawshank prison — tours by day, ghost hunts by night.</p>
+        </div>
+        <div class="near">
+          <span class="tag">Winter</span>
+          <h3>Snow Trails</h3>
+          <p>Ohio's ski destination — slopes and snow tubing minutes from your hot tub.</p>
+        </div>
+        <div class="near">
+          <span class="tag">And more</span>
+          <h3>Mansfield &amp; beyond</h3>
+          <p>Restaurants, the carousel district, and everything mid-Ohio keeps within easy reach.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOK ================= -->
+  <section id="book" class="book">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Book your stay</p>
+        <h2>One call and the cottage is yours.</h2>
+        <p class="prose" style="margin-top:1.2rem">Booking runs person-to-person — call or text any day, any hour, and we'll sort dates, questions, and check-in details. Availability may vary on holidays.</p>
+        <div class="hours-line">
+          <span class="day"><b>Mon</b>Open 24 hours</span>
+          <span class="day"><b>Tue</b>Open 24 hours</span>
+          <span class="day"><b>Wed</b>Open 24 hours</span>
+          <span class="day"><b>Thu</b>Open 24 hours</span>
+          <span class="day"><b>Fri</b>Open 24 hours</span>
+          <span class="day"><b>Sat</b>Open 24 hours</span>
+          <span class="day"><b>Sun</b>Open 24 hours</span>
+        </div>
+      </div>
+      <div>
+        <div class="vcard">
+          <h3>📞 Call or text</h3>
+          <p>Dates, rates, and anything else — reach the hosts directly.</p>
+          <p><a href="tel:+14195440969">+1 419-544-0969</a></p>
+        </div>
+        <div class="vcard">
+          <h3>📍 The cottage</h3>
+          <p>561 Cliffside Dr<br>Mansfield, OH 44904</p>
+          <p><a href="https://maps.google.com/?q=561+Cliffside+Dr,+Mansfield,+OH+44904" rel="noopener">Get directions</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fbrand">Cliffside Cottage</div>
+    <p>Pfeiffer Stay Co. LLC &middot; Vacation home rental &middot; Mansfield, Ohio</p>
+    <p>561 Cliffside Dr, Mansfield, OH 44904 &middot; <a href="tel:+14195440969">+1 419-544-0969</a></p>
+    <p class="fine">Photos from the Pfeiffer Stay Co. business profile on Google — that's the real cottage, inside and out.</p>
+  </div>
+</footer>
+
+</body>
+</html>
