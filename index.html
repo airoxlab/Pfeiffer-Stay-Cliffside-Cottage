@@ -587,9 +587,14 @@
             </div>
           </div>
 
-          <button class="btn btn-solid" type="submit">Send booking request</button>
-          <p class="note">This opens your email app with the details filled in &mdash; just hit send. Or call/text <a href="tel:+14195440969">+1 419-544-0969</a>.</p>
-          <p class="sent" id="booking-sent">Your email app should have opened with the request ready to send. If it didn't, call or text us at +1 419-544-0969.</p>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label for="b-website">Leave this empty</label>
+            <input id="b-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn btn-solid" id="booking-submit" type="submit">Send booking request</button>
+          <p class="note">We reply by email &mdash; usually the same day. Prefer to talk? Call or text <a href="tel:+14195440969">+1 419-544-0969</a>.</p>
+          <p class="sent" id="booking-sent"></p>
         </form>
         <div class="hours-line">
           <span class="day"><b>Mon</b>Open 24 hours</span>
@@ -629,30 +634,79 @@
 
 <script>
 (function () {
+  // Booking endpoint. Submissions are sent server-side through Resend so the
+  // guest never has to open a mail app. If the API is unreachable we fall back
+  // to mailto: rather than losing the enquiry.
+  var API = 'https://pfeiffer-stay-cliffside-cottage.airoxlab.com/api/booking';
   var HOST_EMAIL = 'pfeifferisaac@gmail.com';
+  var NL = String.fromCharCode(10);
+
   var form = document.getElementById('booking-form');
   if (!form) { return; }
+  var btn = document.getElementById('booking-submit');
+  var note = document.getElementById('booking-sent');
+
+  function status(msg, ok) {
+    note.textContent = msg;
+    note.style.background = ok ? '' : 'color-mix(in srgb, #9E2B25 10%, var(--card))';
+    note.style.borderColor = ok ? '' : '#9E2B25';
+    note.style.color = ok ? '' : '#9E2B25';
+    note.classList.add('show');
+  }
+
+  function payload() {
+    var d = new FormData(form);
+    return {
+      name: d.get('Name') || '', phone: d.get('Phone') || '', email: d.get('Email') || '',
+      checkin: d.get('Check-in') || '', checkout: d.get('Check-out') || '',
+      guests: d.get('Guests') || '', occasion: d.get('Occasion') || '',
+      message: d.get('Message') || '', website: d.get('website') || ''
+    };
+  }
+
+  function mailtoFallback(p) {
+    var lines = [
+      'Name: ' + p.name, 'Phone: ' + p.phone, 'Email: ' + p.email,
+      'Check-in: ' + p.checkin, 'Check-out: ' + p.checkout,
+      'Guests: ' + p.guests
+    ];
+    if (p.occasion) { lines.push('Occasion: ' + p.occasion); }
+    if (p.message) { lines.push('Message: ' + p.message); }
+    lines.push('', 'Sent from the Cliffside Cottage website.');
+    window.location.href = 'mailto:' + HOST_EMAIL +
+      '?subject=' + encodeURIComponent('Booking request — ' + p.checkin + ' — Cliffside Cottage') +
+      '&body=' + encodeURIComponent(lines.join(NL));
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
-    var data = new FormData(form);
-    var lines = [];
-    data.forEach(function (value, key) {
-      if (String(value).trim() !== '') { lines.push(key + ': ' + value); }
+    var p = payload();
+    var label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(p)
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (body) {
+        if (!r.ok) { throw new Error(body.error || 'Request failed'); }
+        return body;
+      });
+    }).then(function () {
+      form.reset();
+      btn.textContent = 'Request sent';
+      status('Thanks — your request is on its way. We’ll be in touch shortly, and a confirmation is in your inbox.', true);
+    }).catch(function (err) {
+      btn.disabled = false;
+      btn.textContent = label;
+      status('We could not send that automatically, so your email app is opening instead — just hit send. Or call us on +1 419-544-0969.', false);
+      mailtoFallback(p);
+      if (window.console) { console.error('booking:', err.message); }
     });
-    lines.push('');
-    lines.push('Sent from the Cliffside Cottage website.');
-
-    var checkIn = data.get('Check-in') || '';
-    var subject = 'Booking request' + (checkIn ? ' — ' + checkIn : '') + ' — Cliffside Cottage';
-
-    window.location.href = 'mailto:' + HOST_EMAIL +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(lines.join(String.fromCharCode(10)));
-
-    document.getElementById('booking-sent').classList.add('show');
   });
 
   // check-out can never precede check-in
