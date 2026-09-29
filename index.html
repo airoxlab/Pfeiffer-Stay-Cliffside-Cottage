@@ -304,6 +304,40 @@
   .vcard a { font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
   .vcard a:hover { text-decoration: underline; }
 
+  /* ---------- Booking form ---------- */
+  .bform {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: 1.6rem 1.5rem;
+    margin-top: 1.6rem;
+  }
+  .bform h3 { font-size: 1.08rem; }
+  .bform .hint { margin-top: 0.4rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .field-row { display: grid; gap: 0.9rem; margin-top: 1.1rem; }
+  @media (min-width: 560px) { .field-row.two { grid-template-columns: 1fr 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .field label { font-size: 0.83rem; font-weight: 700; letter-spacing: 0.04em; color: var(--ink); }
+  .field input, .field select, .field textarea {
+    font-family: var(--body); font-size: 1rem; color: var(--ink);
+    background: var(--cream); border: 1px solid var(--line); border-radius: 0.6rem;
+    padding: 0.65rem 0.8rem; width: 100%;
+  }
+  .field textarea { min-height: 96px; resize: vertical; }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
+    outline: 3px solid var(--felt); outline-offset: 1px; border-color: var(--felt);
+  }
+  .field input:invalid:not(:placeholder-shown) { border-color: var(--cherry); }
+  .bform .btn { margin-top: 1.2rem; border: 0; cursor: pointer; font-family: var(--body); }
+  .bform .note { margin-top: 0.85rem; font-size: 0.85rem; color: var(--ink-soft); }
+  .bform .sent {
+    display: none; margin-top: 1rem; padding: 0.85rem 1rem;
+    background: color-mix(in srgb, var(--felt) 12%, var(--card));
+    border: 1px solid var(--felt); border-radius: 0.6rem;
+    font-size: 0.93rem; font-weight: 600; color: var(--felt-deep);
+  }
+  .bform .sent.show { display: block; }
+
   /* ---------- Footer ---------- */
   footer.site {
     background: var(--cream-deep);
@@ -495,6 +529,68 @@
         <p class="eyebrow">Book your stay</p>
         <h2>One call and the cottage is yours.</h2>
         <p class="prose" style="margin-top:1.2rem">Booking runs person-to-person — call or text any day, any hour, and we'll sort dates, questions, and check-in details. Availability may vary on holidays.</p>
+
+        <form class="bform" id="booking-form" novalidate>
+          <h3>Request your dates</h3>
+          <p class="hint">Send the details and we'll come straight back to you with availability and the rate. Prefer to talk? Call or text any hour.</p>
+
+          <div class="field-row two">
+            <div class="field">
+              <label for="b-name">Your name</label>
+              <input id="b-name" name="Name" type="text" autocomplete="name" placeholder="Jane Doe" required>
+            </div>
+            <div class="field">
+              <label for="b-phone">Phone</label>
+              <input id="b-phone" name="Phone" type="tel" autocomplete="tel" placeholder="419-555-0123" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="b-email">Email</label>
+              <input id="b-email" name="Email" type="email" autocomplete="email" placeholder="jane@example.com" required>
+            </div>
+          </div>
+
+          <div class="field-row two">
+            <div class="field">
+              <label for="b-in">Check-in</label>
+              <input id="b-in" name="Check-in" type="date" required>
+            </div>
+            <div class="field">
+              <label for="b-out">Check-out</label>
+              <input id="b-out" name="Check-out" type="date" required>
+            </div>
+          </div>
+
+          <div class="field-row two">
+            <div class="field">
+              <label for="b-guests">Guests</label>
+              <select id="b-guests" name="Guests">
+                <option>1&ndash;2</option>
+                <option>3&ndash;4</option>
+                <option>5&ndash;6</option>
+                <option>7&ndash;8</option>
+                <option>9 or more</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="b-occasion">Occasion <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+              <input id="b-occasion" name="Occasion" type="text" placeholder="Family trip, Mid-Ohio weekend&hellip;">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="b-msg">Anything else? <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+              <textarea id="b-msg" name="Message" placeholder="Questions about the hot tub, check-in times, bringing a dog&hellip;"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-solid" type="submit">Send booking request</button>
+          <p class="note">This opens your email app with the details filled in &mdash; just hit send. Or call/text <a href="tel:+14195440969">+1 419-544-0969</a>.</p>
+          <p class="sent" id="booking-sent">Your email app should have opened with the request ready to send. If it didn't, call or text us at +1 419-544-0969.</p>
+        </form>
         <div class="hours-line">
           <span class="day"><b>Mon</b>Open 24 hours</span>
           <span class="day"><b>Tue</b>Open 24 hours</span>
@@ -530,5 +626,45 @@
   </div>
 </footer>
 
+
+<script>
+(function () {
+  var HOST_EMAIL = 'pfeifferisaac@gmail.com';
+  var form = document.getElementById('booking-form');
+  if (!form) { return; }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var data = new FormData(form);
+    var lines = [];
+    data.forEach(function (value, key) {
+      if (String(value).trim() !== '') { lines.push(key + ': ' + value); }
+    });
+    lines.push('');
+    lines.push('Sent from the Cliffside Cottage website.');
+
+    var checkIn = data.get('Check-in') || '';
+    var subject = 'Booking request' + (checkIn ? ' — ' + checkIn : '') + ' — Cliffside Cottage';
+
+    window.location.href = 'mailto:' + HOST_EMAIL +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(lines.join(String.fromCharCode(10)));
+
+    document.getElementById('booking-sent').classList.add('show');
+  });
+
+  // check-out can never precede check-in
+  var ci = document.getElementById('b-in');
+  var co = document.getElementById('b-out');
+  var today = new Date().toISOString().split('T')[0];
+  ci.min = today; co.min = today;
+  ci.addEventListener('change', function () {
+    co.min = ci.value || today;
+    if (co.value && co.value < ci.value) { co.value = ''; }
+  });
+})();
+</script>
 </body>
 </html>
